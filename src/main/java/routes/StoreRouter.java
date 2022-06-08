@@ -9,10 +9,7 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
-import usecases.AddProductUseCase;
-import usecases.AddProviderUseCase;
-import usecases.GetAllProductsUseCase;
-import usecases.GetAllProvidersUseCase;
+import usecases.*;
 import usecases.interfaces.AddProvider;
 
 import java.util.function.Function;
@@ -38,7 +35,6 @@ public class StoreRouter {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromPublisher(getAllProvidersUseCase.get(), ProviderDTO.class)));
     }
-
 
     //add new product
     @Bean
@@ -67,6 +63,27 @@ public class StoreRouter {
                         .and(accept(MediaType.APPLICATION_JSON)),
                 request -> request.bodyToMono(ProviderDTO.class).flatMap(executor));
     }
+
+    //delete product
+    @Bean
+    RouterFunction<ServerResponse> deleteProduct(DeleteProductUseCase deleteProductUseCase){
+        return route(
+                DELETE("/delete/product/{id}"),
+                request -> ServerResponse.accepted()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(deleteProductUseCase.apply(request.pathVariable("id")), Void.class)));
+    }
+
+    //delete provider
+    @Bean
+    RouterFunction<ServerResponse> deleteProvider(DeleteProviderUseCase deleteProviderUseCase){
+        return route(
+                DELETE("/delete/provider/{id}"),
+                request -> ServerResponse.accepted()
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(BodyInserters.fromPublisher(deleteProviderUseCase.apply(request.pathVariable("id")), Void.class)));
+    }
+
 
 
 }

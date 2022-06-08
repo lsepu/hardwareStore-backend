@@ -8,10 +8,16 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Mono;
+import usecases.AddProductUseCase;
+import usecases.AddProviderUseCase;
 import usecases.GetAllProductsUseCase;
 import usecases.GetAllProvidersUseCase;
+import usecases.interfaces.AddProvider;
 
-import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import java.util.function.Function;
+
+import static org.springframework.web.reactive.function.server.RequestPredicates.*;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
@@ -35,10 +41,32 @@ public class StoreRouter {
 
 
     //add new product
+    @Bean
+    RouterFunction<ServerResponse> addProduct(AddProductUseCase addProductUseCase){
+        Function<ProductDTO, Mono<ServerResponse>> executor =
+                productDTO -> addProductUseCase.apply(productDTO)
+                        .flatMap(result-> ServerResponse.ok()
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .bodyValue(result));
 
+        return route(POST("/add/product")
+                        .and(accept(MediaType.APPLICATION_JSON)),
+                request -> request.bodyToMono(ProductDTO.class).flatMap(executor));
+    }
 
     //add new provider
+    @Bean
+    RouterFunction<ServerResponse> addProvider(AddProviderUseCase addProviderUseCase){
+        Function<ProviderDTO, Mono<ServerResponse>> executor =
+                providerDTO -> addProviderUseCase.apply(providerDTO)
+                        .flatMap(result-> ServerResponse.ok()
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .bodyValue(result));
 
+        return route(POST("/add/provider")
+                        .and(accept(MediaType.APPLICATION_JSON)),
+                request -> request.bodyToMono(ProviderDTO.class).flatMap(executor));
+    }
 
 
 }

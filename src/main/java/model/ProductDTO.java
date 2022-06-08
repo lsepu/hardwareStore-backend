@@ -1,5 +1,6 @@
 package model;
 
+import collection.Provider;
 import lombok.Data;
 
 @Data
@@ -12,6 +13,6 @@ public class ProductDTO {
     private Integer minUnits;
     private Integer maxUnits;
     private Integer quantity;
-    private String providerId;
+    private Provider provider;
 
 }

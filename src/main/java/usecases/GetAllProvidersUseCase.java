@@ -18,7 +18,7 @@ public class GetAllProvidersUseCase {
         this.storeMapper = storeMapper;
     }
 
-    public Flux<ProviderDTO> getProviders(){
+    public Flux<ProviderDTO> get(){
         return repository.findAll().map(storeMapper::convertProviderToProviderDTO);
     }
 

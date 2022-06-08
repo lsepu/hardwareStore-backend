@@ -17,7 +17,7 @@ public class GetAllProductsUseCase {
         this.storeMapper = storeMapper;
     }
 
-    public Flux<ProductDTO> getProducts(){
+    public Flux<ProductDTO> get(){
         return repository.findAll().map(storeMapper::convertProductToProductDTO);
     }
 

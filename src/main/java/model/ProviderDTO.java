@@ -6,8 +6,8 @@ import lombok.Data;
 public class ProviderDTO {
 
     private String id;
+    private String idCard;
     private String name;
-    private String address;
     private String phoneNumber;
 
 }

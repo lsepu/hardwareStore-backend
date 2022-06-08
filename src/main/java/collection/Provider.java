@@ -11,7 +11,7 @@ public class Provider {
     @Id
     private String id;
     private String name;
-    private String address;
+    private String idCard;
     private String phoneNumber;
 
 }

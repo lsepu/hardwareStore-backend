@@ -1,5 +1,7 @@
 package com.hardwareStore.hardwareStore.model;
 
+import com.hardwareStore.hardwareStore.collection.Product;
+import com.hardwareStore.hardwareStore.collection.ProductOrder;
 import lombok.Data;
 
 import java.util.List;
@@ -11,6 +13,6 @@ public class BillDTO {
     private String date;
     private String clientName;
     private String salesPersonName;
-    private List<String> products;
+    private List<ProductOrder> products;
 
 }

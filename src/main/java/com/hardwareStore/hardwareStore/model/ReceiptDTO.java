@@ -10,6 +10,7 @@ public class ReceiptDTO {
     private String id;
     private String date;
     private String providerName;
-    private List<String> products;
+    private String productName;
+    private Integer quantity;
 
 }

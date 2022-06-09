@@ -15,5 +15,5 @@ public class Bill {
     private String date;
     private String clientName;
     private String salesPersonName;
-    private List<String> products;
+    private List<ProductOrder> products;
 }

@@ -1,7 +1,9 @@
 package com.hardwareStore.hardwareStore.routes;
 
+import com.hardwareStore.hardwareStore.model.BillDTO;
 import com.hardwareStore.hardwareStore.model.ProductDTO;
 import com.hardwareStore.hardwareStore.model.ProviderDTO;
+import com.hardwareStore.hardwareStore.model.ReceiptDTO;
 import com.hardwareStore.hardwareStore.usecases.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -83,6 +85,48 @@ public class StoreRouter {
                         .body(BodyInserters.fromPublisher(deleteProviderUseCase.apply(request.pathVariable("id")), Void.class)));
     }
 
+    //get all bills
+    @Bean
+    public RouterFunction<ServerResponse> getBills(GetAllBillsUseCase getAllBillsUseCase){
+        return route(GET("/bill/all"), request -> ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromPublisher(getAllBillsUseCase.get(), BillDTO.class)));
+    }
 
+    //add new bill
+    @Bean
+    RouterFunction<ServerResponse> createBill(CreateBillUseCase createBillUseCase){
+        Function<BillDTO, Mono<ServerResponse>> executor =
+                billDTO -> createBillUseCase.apply(billDTO)
+                        .flatMap(result-> ServerResponse.ok()
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .bodyValue(result));
+
+        return route(POST("/bill/add")
+                        .and(accept(MediaType.APPLICATION_JSON)),
+                request -> request.bodyToMono(BillDTO.class).flatMap(executor));
+    }
+
+    //get all receipts
+    @Bean
+    public RouterFunction<ServerResponse> getReceipts(GetAllReceiptsUseCase getAllReceiptsUseCase){
+        return route(GET("/receipt/all"), request -> ServerResponse.ok()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(BodyInserters.fromPublisher(getAllReceiptsUseCase.get(), ReceiptDTO.class)));
+    }
+
+    //add new receipt
+    @Bean
+    RouterFunction<ServerResponse> createReceipt(CreateReceiptUseCase createReceiptUseCase){
+        Function<ReceiptDTO, Mono<ServerResponse>> executor =
+                receiptDTO -> createReceiptUseCase.apply(receiptDTO)
+                        .flatMap(result-> ServerResponse.ok()
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .bodyValue(result));
+
+        return route(POST("/receipt/add")
+                        .and(accept(MediaType.APPLICATION_JSON)),
+                request -> request.bodyToMono(ReceiptDTO.class).flatMap(executor));
+    }
 
 }

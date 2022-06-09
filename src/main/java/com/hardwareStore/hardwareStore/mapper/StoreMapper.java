@@ -48,7 +48,7 @@ public class StoreMapper {
         return modelMapper.map(bill, BillDTO.class);
     }
 
-    public Bill convertDTOtoBill(BillDTO billDTO){
+    public Bill convertBillDTOtoBill(BillDTO billDTO){
         return modelMapper.map(billDTO, Bill.class);
     }
 

@@ -129,4 +129,19 @@ public class StoreRouter {
                 request -> request.bodyToMono(ReceiptDTO.class).flatMap(executor));
     }
 
+    //update product
+    @Bean
+    public RouterFunction<ServerResponse> updateProduct(UpdateProductUseCase updateProductUseCase){
+        Function<ProductDTO, Mono<ServerResponse>> executor =
+                productDTO -> updateProductUseCase.apply(productDTO)
+                        .flatMap(result -> ServerResponse.ok()
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .bodyValue(result));
+
+        return route(PUT("/product/update")
+                .and(accept(MediaType.APPLICATION_JSON)), request -> request
+                .bodyToMono(ProductDTO.class)
+                .flatMap(executor));
+    }
+
 }

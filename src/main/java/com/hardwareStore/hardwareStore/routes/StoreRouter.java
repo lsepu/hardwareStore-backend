@@ -34,7 +34,7 @@ public class StoreRouter {
     //get all products
     @Bean
     public RouterFunction<ServerResponse> getProducts(GetAllProductsUseCase getAllProductsUseCase){
-        return route(GET("/product/all"), request -> ServerResponse.ok()
+        return route(GET("/api/v1/product/all"), request -> ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromPublisher(getAllProductsUseCase.get(), ProductDTO.class)));
     }
@@ -42,7 +42,7 @@ public class StoreRouter {
     //get all providers
     @Bean
     public RouterFunction<ServerResponse> getProviders(GetAllProvidersUseCase getAllProvidersUseCase){
-        return route(GET("/provider/all"), request -> ServerResponse.ok()
+        return route(GET("/api/v1/provider/all"), request -> ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromPublisher(getAllProvidersUseCase.get(), ProviderDTO.class)));
     }
@@ -56,7 +56,7 @@ public class StoreRouter {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .bodyValue(result));
 
-        return route(POST("/product/add")
+        return route(POST("/api/v1/product/add")
                         .and(accept(MediaType.APPLICATION_JSON)),
                 request -> request.bodyToMono(ProductDTO.class).flatMap(executor));
     }
@@ -70,7 +70,7 @@ public class StoreRouter {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .bodyValue(result));
 
-        return route(POST("/provider/add")
+        return route(POST("/api/v1/provider/add")
                         .and(accept(MediaType.APPLICATION_JSON)),
                 request -> request.bodyToMono(ProviderDTO.class).flatMap(executor));
     }
@@ -79,7 +79,7 @@ public class StoreRouter {
     @Bean
     RouterFunction<ServerResponse> deleteProduct(DeleteProductUseCase deleteProductUseCase){
         return route(
-                DELETE("/product/delete/{id}"),
+                DELETE("/api/v1/product/delete/{id}"),
                 request -> ServerResponse.accepted()
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromPublisher(deleteProductUseCase.apply(request.pathVariable("id")), Void.class)));
@@ -89,7 +89,7 @@ public class StoreRouter {
     @Bean
     RouterFunction<ServerResponse> deleteProvider(DeleteProviderUseCase deleteProviderUseCase){
         return route(
-                DELETE("/provider/delete/{id}"),
+                DELETE("/api/v1/provider/delete/{id}"),
                 request -> ServerResponse.accepted()
                         .contentType(MediaType.APPLICATION_JSON)
                         .body(BodyInserters.fromPublisher(deleteProviderUseCase.apply(request.pathVariable("id")), Void.class)));
@@ -98,7 +98,7 @@ public class StoreRouter {
     //get all bills
     @Bean
     public RouterFunction<ServerResponse> getBills(GetAllBillsUseCase getAllBillsUseCase){
-        return route(GET("/bill/all"), request -> ServerResponse.ok()
+        return route(GET("/api/v1/bill/all"), request -> ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromPublisher(getAllBillsUseCase.get(), BillDTO.class)));
     }
@@ -112,7 +112,7 @@ public class StoreRouter {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .bodyValue(result));
 
-        return route(POST("/bill/add")
+        return route(POST("/api/v1/bill/add")
                         .and(accept(MediaType.APPLICATION_JSON)),
                 request -> request.bodyToMono(BillDTO.class).flatMap(executor));
     }
@@ -120,7 +120,7 @@ public class StoreRouter {
     //get all receipts
     @Bean
     public RouterFunction<ServerResponse> getReceipts(GetAllReceiptsUseCase getAllReceiptsUseCase){
-        return route(GET("/receipt/all"), request -> ServerResponse.ok()
+        return route(GET("/api/v1/receipt/all"), request -> ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromPublisher(getAllReceiptsUseCase.get(), ReceiptDTO.class)));
     }
@@ -134,7 +134,7 @@ public class StoreRouter {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .bodyValue(result));
 
-        return route(POST("/receipt/add")
+        return route(POST("/api/v1/receipt/add")
                         .and(accept(MediaType.APPLICATION_JSON)),
                 request -> request.bodyToMono(ReceiptDTO.class).flatMap(executor));
     }
@@ -148,7 +148,7 @@ public class StoreRouter {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .bodyValue(result));
 
-        return route(PUT("/product/update")
+        return route(PUT("/api/v1/product/update")
                 .and(accept(MediaType.APPLICATION_JSON)), request -> request
                 .bodyToMono(ProductDTO.class)
                 .flatMap(executor));

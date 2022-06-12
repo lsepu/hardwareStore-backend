@@ -12,7 +12,7 @@ public class Product {
     private String id;
     private String name;
     private String description;
-    private Double price;
+    private Integer price;
     private Integer minUnits;
     private Integer maxUnits;
     private Integer quantity;

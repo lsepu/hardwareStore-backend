@@ -1,4 +1,4 @@
-package com.hardwareStore.hardwareStore.usecases;
+package com.hardwareStore.hardwareStore.usecases.Product;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,4 +1,4 @@
-package com.hardwareStore.hardwareStore.usecases;
+package com.hardwareStore.hardwareStore.usecases.Provider;
 
 import com.hardwareStore.hardwareStore.model.ProviderDTO;
 import com.hardwareStore.hardwareStore.usecases.interfaces.AddProvider;

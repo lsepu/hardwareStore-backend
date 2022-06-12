@@ -1,4 +1,4 @@
-package com.hardwareStore.hardwareStore.usecases;
+package com.hardwareStore.hardwareStore.usecases.Product;
 
 import com.hardwareStore.hardwareStore.model.ProductDTO;
 import lombok.AllArgsConstructor;

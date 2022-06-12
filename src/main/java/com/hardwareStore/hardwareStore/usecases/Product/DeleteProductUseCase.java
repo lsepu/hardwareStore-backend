@@ -1,4 +1,4 @@
-package com.hardwareStore.hardwareStore.usecases;
+package com.hardwareStore.hardwareStore.usecases.Product;
 
 import com.hardwareStore.hardwareStore.usecases.interfaces.DeleteFromStore;
 import lombok.AllArgsConstructor;

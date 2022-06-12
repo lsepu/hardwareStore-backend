@@ -1,4 +1,4 @@
-package com.hardwareStore.hardwareStore.usecases;
+package com.hardwareStore.hardwareStore.usecases.Bill;
 
 import com.hardwareStore.hardwareStore.mapper.StoreMapper;
 import com.hardwareStore.hardwareStore.model.BillDTO;

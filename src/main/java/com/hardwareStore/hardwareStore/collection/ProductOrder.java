@@ -8,6 +8,6 @@ import java.util.UUID;
 public class ProductOrder {
     private String id = UUID.randomUUID().toString().substring(0, 10);;
     private String name;
-    private Integer price;
-    private Integer quantity;
+    private Integer amount;
+    private Integer total;
 }
